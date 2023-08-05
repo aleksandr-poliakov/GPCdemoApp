@@ -34,16 +34,14 @@ public class InitDB implements ApplicationRunner {
         Resource resource = resourceLoader.getResource("classpath:gpc.csv");
         try (CSVReader reader = new CSVReader(new InputStreamReader(resource.getInputStream()))) {
             String[] nextLine;
-            boolean isFirstLine = false;
             int inserted = 0;
             int duplicate = 0;
             int checked = 0;
             logger.info("Start check and insert");
+            if (reader.readNext().length == 0) {
+                return;
+            }
             while ((nextLine = reader.readNext()) != null) {
-                if (isFirstLine) {
-                    isFirstLine = false;
-                    continue; // Skip the header line
-                }
                 var payment = new PaymentDTO();
                 payment.setSenderAccount(nextLine[1]);
                 payment.setRecipientAccount(nextLine[2]);

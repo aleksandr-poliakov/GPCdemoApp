@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author aleksandr on 04.08.2023
@@ -40,6 +39,6 @@ public class PaymentController {
      */
     public List<PaymentDTO> getAllPayments() {
         // TODO make with page query to simplify this stream
-        return paymentService.getAllPayments().stream().map((element) -> modelMapper.map(element, PaymentDTO.class)).collect(Collectors.toList());
+        return paymentService.getAllPayments().stream().map((element) -> modelMapper.map(element, PaymentDTO.class)).toList();
     }
 }
