@@ -1,6 +1,8 @@
 package com.example.gpcdemoapp.config;
 
 import com.example.gpcdemoapp.services.PaymentService;
+import com.example.gpcdemoapp.services.StatementService;
+import com.example.gpcdemoapp.services.TransactionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -32,6 +34,10 @@ class InitDBTest {
 
     @Mock
     private PaymentService paymentService;
+    @Mock
+    private StatementService statementService;
+    @Mock
+    private TransactionService transactionService;
 
     @InjectMocks
     private InitDB initDB;
@@ -39,7 +45,7 @@ class InitDBTest {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.openMocks(this);
-        initDB = new InitDB(resourceLoader, paymentService);
+        initDB = new InitDB(resourceLoader, paymentService, transactionService, statementService);
     }
     @Test
     public void testRunWithEmptyCSV() throws Exception {

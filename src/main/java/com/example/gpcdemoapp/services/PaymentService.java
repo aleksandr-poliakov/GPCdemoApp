@@ -52,7 +52,7 @@ public class PaymentService {
     /**
      * Retrieves a payments.
      *
-     * @return apartments.
+     * @return payments.
      */
     public List<Payment> getAllPayments() {
         return paymentRepository.findAll();

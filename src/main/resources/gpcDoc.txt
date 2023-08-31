@@ -1,0 +1,45 @@
+GPC Format Structure (for electronic statements)
+The output file contains "Data - statement in CZK," "Data - transaction item" records, which have a fixed length of 130 characters. There is no delimiter between individual data in the record. The data are filled to the fixed length from the left with the appropriate number of zero characters.
+
+Structure of the "Data - statement in CZK" record:
+074 0000000459893203       Shoptet, a.s.18012200000000000000+00000000003130+00000000056800-00000000005800+007180122
+
+Bytes 1-3: "074" = Type of record "Data - statement in CZK"
+Bytes 4-19: Assigned account number with leading zeros
+Bytes 20-39: 20 alphanumeric characters of the truncated account name, optionally filled with spaces from the right
+Bytes 40-45: Date of the old balance in DDMMYY format
+Bytes 46-59: Old balance in hellers, 14 numerical characters with leading zeros
+Byte 60: Sign of old balance, 1 character "+" or "-"
+Bytes 61-74: New balance in hellers, 14 numerical characters with leading zeros
+Byte 75: Sign of new balance, 1 character "+" or "-"
+Bytes 76-89: Debit turnovers (MD) in hellers, 14 numerical characters with leading zeros
+Byte 90: Sign of debit turnovers (MD), 1 character "0" or "-"
+Bytes 91-104: Credit turnovers (D) in hellers, 14 numerical characters with leading zeros
+Byte 105: Sign of credit turnovers (D), 1 character "0" or "-"
+Bytes 106-108: Serial number of the statement
+Bytes 109-114: Accounting date in DDMMYY format
+Bytes 115-128: (filled with 14 space characters to unify record length)
+Bytes 129-130: Ending characters CR and LF
+Structure of the "Data - transaction item in CZK" record:
+
+Bytes 1-3: "075" = Type of record "Data - transaction item"
+Bytes 4-19: Assigned account number, 16 numerical characters with leading zeros
+Bytes 20-35: Account number, 16 numerical characters with leading zeros (possibly in prefix + account number order)
+Bytes 36-48: Document number, 13 numerical characters
+Bytes 49-60: Amount in hellers, 12 numerical characters with leading zeros
+Byte 61: Accounting code related to the account number:
+1 = Debit item
+2 = Credit item
+4 = Debit item reversal
+5 = Credit item reversal
+Bytes 62-71: Variable symbol, 10 numerical characters with leading zeros
+Bytes 72-81: Constant symbol, 10 numerical characters with leading zeros in the form BBBBKSYM, where:
+BBBB = bank code,
+KSYM = constant symbol
+Bytes 82-91: Specific symbol, 10 numerical characters with leading zeros
+Bytes 92-97: "000000" = currency
+Bytes 98-117: 20 alphanumeric characters of the truncated client name, optionally filled with spaces from the right
+Byte 118: "0"
+Bytes 119-122: "0203" = currency code for CZK
+Bytes 123-128: Due date in DDMMYY format
+Bytes 129-130: Ending characters CR and LF
